@@ -1,0 +1,56 @@
+{
+  "name": "sketch-export-prototype",
+  "version": "0.0.0",
+  "description": "A Sketch plugin to export a clickable prototype from your Sketch file",
+  "keywords": [
+    "plugin",
+    "sketch",
+    "sketch-plugin-helper"
+  ],
+  "license": "MIT",
+  "author": "Lim Yuan Qing",
+  "repository": "yuanqing/sketch-export-prototype",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-transition-group": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "chokidar-cli": "^1.2.2",
+    "concurrently": "^4.1.0",
+    "sketch-plugin-helper": "*",
+    "terser-webpack-plugin": "^1.2.3",
+    "webpack": "^4.30.0"
+  },
+  "scripts": {
+    "build": "concurrently 'yarn run build-app' 'yarn run build-plugin'",
+    "build-app": "node src/app/build-esm.js",
+    "build-plugin": "sph build",
+    "fix": "sph lint --fix",
+    "lint": "sph lint",
+    "symlink": "sph symlink",
+    "unlink": "sph symlink --delete",
+    "version": "sph version",
+    "watch": "concurrently 'yarn run watch-app' 'yarn run watch-plugin'",
+    "watch-app": "NODE_ENV=development chokidar 'src/app/**/*.js' --initial --command 'yarn app-build'",
+    "watch-plugin": "sph build --watch"
+  },
+  "sketch-plugin-helper": {
+    "name": "Export Prototype",
+    "menu": [
+      {
+        "handler": "export-prototype",
+        "label": "Export Prototype"
+      },
+      "-",
+      {
+        "handler": "reset-settings",
+        "label": "Reset Settings"
+      }
+    ]
+  }
+}

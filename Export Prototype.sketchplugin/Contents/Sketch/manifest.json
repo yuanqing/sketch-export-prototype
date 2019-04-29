@@ -1,0 +1,33 @@
+{
+  "name": "Export Prototype",
+  "description": "A Sketch plugin to export a clickable prototype from your Sketch file",
+  "author": "Lim Yuan Qing",
+  "homepage": "https://github.com/yuanqing/sketch-export-prototype",
+  "version": "0.0.0",
+  "identifier": "yuanqing.sketch-export-prototype",
+  "appcast": "https://raw.githubusercontent.com/yuanqing/sketch-export-prototype/master/appcast.xml",
+  "bundleVersion": 1,
+  "disableCocoaScriptPreprocessor": true,
+  "commands": [
+    {
+      "name": "Export Prototype",
+      "identifier": "yuanqing.sketch-export-prototype.export-prototype",
+      "script": "plugin.js",
+      "handler": "export-prototype"
+    },
+    {
+      "name": "Reset Settings",
+      "identifier": "yuanqing.sketch-export-prototype.reset-settings",
+      "script": "plugin.js",
+      "handler": "reset-settings"
+    }
+  ],
+  "menu": {
+    "title": "Export Prototype",
+    "items": [
+      "yuanqing.sketch-export-prototype.export-prototype",
+      "-",
+      "yuanqing.sketch-export-prototype.reset-settings"
+    ]
+  }
+}

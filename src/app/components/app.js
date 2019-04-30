@@ -16,6 +16,7 @@ export default function App ({
     top: '50%',
     width: viewportWidth,
     height: viewportHeight,
+    borderRadius: 10,
     transform: 'translate(-50%, -50%)',
     overflow: 'hidden'
   }

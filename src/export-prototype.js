@@ -10,7 +10,7 @@ import writeConfig from './write-config'
 import writeImages from './image/write-images'
 
 const outputDirectoryPath =
-  '/Users/yuanqing/Desktop/Sketch/sketch-export-prototype/build'
+  '/Users/yuanqing/Desktop/sketch-export-prototype/build'
 const viewportWidth = 375
 const viewportHeight = 812
 const imageScale = 3

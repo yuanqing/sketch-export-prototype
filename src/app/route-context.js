@@ -2,8 +2,10 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
-  useReducer
+  useReducer,
+  useRef
 } from 'react'
 
 export { RouteProvider, useRoute }
@@ -42,6 +44,10 @@ function reducer (state, action) {
 }
 
 function RouteProvider (props) {
+  const indices = useRef({
+    index: 0,
+    currentStateIndex: -1
+  })
   const { initialRoute, ...rest } = props
   const initialState = {
     routeHistory: [{ route: initialRoute, animationType: null }],
@@ -50,16 +56,7 @@ function RouteProvider (props) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { routeHistory, currentRouteIndex } = state
   const currentRoute = routeHistory[currentRouteIndex]
-  const previousRoute =
-    currentRouteIndex > 0 ? routeHistory[currentRouteIndex - 1] : null
-  const routeTo = useCallback(function ({ route, animationType }) {
-    dispatch({ type: ROUTE_TO, route, animationType })
-    window.location.hash = route
-  }, [])
-  const routeBack = useCallback(function () {
-    dispatch({ type: ROUTE_BACK })
-    window.history.back()
-  }, [])
+  const previousRoute = currentRouteIndex > 0 ? routeHistory[currentRouteIndex - 1] : null
   const getPageStack = useCallback(
     function () {
       return routeHistory.slice(0, currentRouteIndex + 1)
@@ -72,12 +69,42 @@ function RouteProvider (props) {
         previousRoute,
         currentRoute,
         getPageStack,
-        routeBack,
-        routeTo
+        routeBack: function() {
+          window.history.back()
+        },
+        routeForward: function() {
+          window.history.forward()
+        },
+        routeTo: function ({route, animationType}) {
+          const index = indices.current.index
+          window.history.pushState({index}, null, `#${route}`)
+          indices.current.currentStateIndex = index
+          indices.current.index = index + 1
+          dispatch({ type: ROUTE_TO, route, animationType })
+        }
       }
     },
-    [previousRoute, currentRoute]
+    [previousRoute, currentRoute, getPageStack]
   )
+  useEffect(function() {
+    function handlePopState (event) {
+      const currentStateIndex = indices.current.currentStateIndex
+      const newStateIndex = event.state == null ? -1 : event.state.index
+      if (newStateIndex < currentStateIndex) {
+        dispatch({ type: ROUTE_BACK })
+        indices.current.currentStateIndex = newStateIndex
+        return
+      }
+      if (newStateIndex > currentStateIndex) {
+        dispatch({ type: ROUTE_FORWARD })
+        indices.current.currentStateIndex = newStateIndex
+      }
+    }
+    window.addEventListener('popstate', handlePopState)
+    return function() {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [state])
   return <RouteContext.Provider value={value} {...rest} />
 }
 

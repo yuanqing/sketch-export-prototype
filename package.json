@@ -11,6 +11,7 @@
   "author": "Lim Yuan Qing",
   "repository": "yuanqing/sketch-export-prototype",
   "dependencies": {
+    "@skpm/fs": "^0.2.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-transition-group": "^4.0.0"
@@ -36,7 +37,7 @@
     "unlink": "sph symlink --delete",
     "version": "sph version",
     "watch": "concurrently 'yarn run watch-app' 'yarn run watch-plugin'",
-    "watch-app": "NODE_ENV=development chokidar 'src/app/**/*.js' --initial --command 'yarn app-build'",
+    "watch-app": "NODE_ENV=development chokidar 'src/app/**/*.js' --initial --command 'yarn build-app'",
     "watch-plugin": "sph build --watch"
   },
   "sketch-plugin-helper": {

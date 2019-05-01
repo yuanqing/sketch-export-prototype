@@ -1,71 +1,45 @@
 import {
-  getArtboardsOnCurrentPage,
-  iterateNestedLayers,
+  getArtboardsOnAllPages,
+  getCurrentDocument,
+  getSettings,
   showErrorMessage,
   showSuccessMessage
 } from 'sketch-plugin-helper'
+import { existsSync, rmdirSync } from '@skpm/fs'
 
-import createPage from './create-page'
-import writeConfig from './write-config'
-import writeImages from './image/write-images'
-
-const outputDirectoryPath =
-  '/Users/yuanqing/Desktop/sketch-export-prototype/build'
-const viewportWidth = 375
-const viewportHeight = 812
-const imageScale = 3
-const imageFormat = 'png'
+import buildPrototype from './build-prototype/build-prototype'
+import copyPrototypeViewerApp from './copy-prototype-viewer-app'
 
 export default function exportPrototype () {
-  const artboards = getArtboardsOnCurrentPage()
+  const artboards = getArtboardsOnAllPages()
   if (artboards.lengths === 0) {
     showErrorMessage('No artboards')
     return
   }
-  const startIds = []
-  const pages = {}
-  artboards.forEach(function (artboard) {
-    if (artboard.flowStartPoint) {
-      startIds.push(artboard.id)
-    }
-    const fixedLayers = []
-    const hotspotLayers = []
-    iterateNestedLayers(artboard.layers, function (layer) {
-      if (layer.hidden) {
-        return
-      }
-      if (layer.sketchObject.isFixedToViewport() === 1) {
-        fixedLayers.push(layer)
-        return
-      }
-      if (layer.flow) {
-        hotspotLayers.push(layer)
-      }
-    })
-    pages[artboard.id] = createPage({
-      artboard,
-      hotspotLayers,
-      fixedLayers,
-      imageFormat,
-      imageScale
-    })
-    writeImages({
-      artboard,
-      fixedLayers,
-      outputDirectoryPath,
-      imageFormat,
-      imageScale
-    })
+  const settings = getSettings()
+  const outputDirectoryPath = createOutputDirectoryPath(
+    settings.outputDirectoryPath
+  )
+  if (existsSync(outputDirectoryPath)) {
+    rmdirSync(outputDirectoryPath)
+  }
+  buildPrototype({
+    artboards,
+    outputDirectoryPath
   })
-  writeConfig({
-    outputFilePath: `${outputDirectoryPath}/data.js`,
-    config: {
-      viewportWidth,
-      viewportHeight,
-      imageScale,
-      startIds,
-      pages
-    }
-  })
-  showSuccessMessage(`Built prototype to ${outputDirectoryPath}`)
+  copyPrototypeViewerApp(outputDirectoryPath)
+  showSuccessMessage(`Built prototype in ${outputDirectoryPath}`)
+}
+
+const basenameRegularExpression = /([^.]+).sketch$/g
+const tildeRegularExpression = /~/
+
+function createOutputDirectoryPath (outputDirectoryPath) {
+  const currentDocument = getCurrentDocument()
+  const fileName = currentDocument.sketchObject.fileURL().lastPathComponent()
+  const baseName = basenameRegularExpression.exec(fileName)[1]
+  return `${outputDirectoryPath.replace(
+    tildeRegularExpression,
+    process.env.HOME
+  )}/${baseName}`
 }

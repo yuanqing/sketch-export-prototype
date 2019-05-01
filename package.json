@@ -49,9 +49,21 @@
       },
       "-",
       {
-        "handler": "reset-settings",
-        "label": "Reset Settings"
+        "Settings": [
+          {
+            "handler": "settings/settings",
+            "label": "Settings"
+          },
+          "-",
+          {
+            "handler": "settings/reset-settings",
+            "label": "Reset Settings"
+          }
+        ]
       }
-    ]
+    ],
+    "defaultSettings": {
+      "outputDirectoryPath": "~/Desktop/sketch-prototypes"
+    }
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import getLocationHash from '../get-location-hash'
 import Pages from './pages'
 import { RouteProvider } from '../route-context'
 import { ViewportProvider } from '../viewport-context'
@@ -11,22 +12,25 @@ export default function App ({
   pages
 }) {
   const style = {
+    cursor: 'pointer',
     position: 'absolute',
     left: '50%',
     top: '50%',
+    marginTop: Math.floor(viewportHeight / 2) * -1,
+    marginLeft: Math.floor(viewportWidth / 2) * -1,
     width: viewportWidth,
     height: viewportHeight,
     borderRadius: 10,
-    transform: 'translate(-50%, -50%)',
     overflow: 'hidden'
   }
+  const startId = getLocationHash() || startIds[0] || Object.keys(pages)[0]
   return (
     <div style={style}>
       <ViewportProvider
         viewportWidth={viewportWidth}
         viewportHeight={viewportHeight}
       >
-        <RouteProvider initialRoute={startIds[0]}>
+        <RouteProvider initialRoute={startId}>
           <Pages data={pages} />
         </RouteProvider>
       </ViewportProvider>

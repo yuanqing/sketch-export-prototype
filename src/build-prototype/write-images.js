@@ -1,8 +1,10 @@
 import { export as sketchExport } from 'sketch/dom'
 
+import { imageFormat, imageScale, imagesDirectory } from '../constants'
+
 function setLayerVisibilityFactory (isVisible) {
   return function (layers) {
-    layers.forEach(function (layer) {
+    layers.forEach(function ({layer}) {
       layer.hidden = !isVisible
     })
   }
@@ -14,34 +16,29 @@ const hideLayers = setLayerVisibilityFactory(false)
 export default function writeImages ({
   artboard,
   fixedLayers,
-  outputDirectoryPath,
-  imageFormat,
-  imageScale
+  outputDirectoryPath
 }) {
-  const outputFilePath = `${outputDirectoryPath}/images`
-  fixedLayers.forEach(function (layer) {
-    writeImage({
-      layer,
-      outputFilePath,
-      imageFormat,
-      imageScale
-    })
+  fixedLayers.forEach(function ({hasImage, layer}) {
+    if (hasImage) {
+      writeImage({
+        layer,
+        outputDirectoryPath
+      })
+    }
   })
   hideLayers(fixedLayers)
   writeImage({
     layer: artboard,
-    outputFilePath,
-    imageFormat,
-    imageScale
+    outputDirectoryPath
   })
   showLayers(fixedLayers)
 }
 
-function writeImage ({ layer, outputFilePath, imageFormat, imageScale }) {
+function writeImage ({ layer, outputDirectoryPath }) {
   sketchExport(layer, {
     formats: imageFormat,
     scales: imageScale,
-    output: outputFilePath,
+    output: `${outputDirectoryPath}/${imagesDirectory}`,
     'use-id-for-name': true
   })
 }

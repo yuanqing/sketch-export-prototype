@@ -16,10 +16,16 @@
       "handler": "export-prototype"
     },
     {
-      "name": "Reset Settings",
-      "identifier": "yuanqing.sketch-export-prototype.reset-settings",
+      "name": "Settings",
+      "identifier": "yuanqing.sketch-export-prototype.settings.settings",
       "script": "plugin.js",
-      "handler": "reset-settings"
+      "handler": "settings/settings"
+    },
+    {
+      "name": "Reset Settings",
+      "identifier": "yuanqing.sketch-export-prototype.settings.reset-settings",
+      "script": "plugin.js",
+      "handler": "settings/reset-settings"
     }
   ],
   "menu": {
@@ -27,7 +33,14 @@
     "items": [
       "yuanqing.sketch-export-prototype.export-prototype",
       "-",
-      "yuanqing.sketch-export-prototype.reset-settings"
+      {
+        "title": "Settings",
+        "items": [
+          "yuanqing.sketch-export-prototype.settings.settings",
+          "-",
+          "yuanqing.sketch-export-prototype.settings.reset-settings"
+        ]
+      }
     ]
   }
 }

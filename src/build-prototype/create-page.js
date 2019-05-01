@@ -1,35 +1,22 @@
 import { getCoordinatesRelativeToArtboard } from 'sketch-plugin-helper'
 
-import createImageFileName from './image/create-image-filename'
+import createImageFileName from './create-image-filename'
 
-export default function createPage ({
-  artboard,
-  fixedLayers,
-  hotspotLayers,
-  imageFormat,
-  imageScale
-}) {
+export default function createPage ({ artboard, fixedLayers, hotspotLayers }) {
   const { width, height } = artboard.frame
   return {
     id: artboard.id,
+    title: artboard.name,
     image: {
-      fileName: createImageFileName({
-        id: artboard.id,
-        imageFormat,
-        imageScale
-      }),
+      fileName: createImageFileName(artboard.id),
       width,
       height
     },
-    fixedLayers: fixedLayers.map(function (layer) {
+    fixedLayers: fixedLayers.map(function ({ hasImage, layer }) {
       const { width, height } = layer.frame
       const { x, y } = getCoordinatesRelativeToArtboard(layer)
       return {
-        fileName: createImageFileName({
-          id: layer.id,
-          imageFormat,
-          imageScale
-        }),
+        fileName: hasImage ? createImageFileName(layer.id) : null,
         width,
         height,
         x,

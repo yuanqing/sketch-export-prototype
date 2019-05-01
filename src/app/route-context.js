@@ -56,7 +56,8 @@ function RouteProvider (props) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { routeHistory, currentRouteIndex } = state
   const currentRoute = routeHistory[currentRouteIndex]
-  const previousRoute = currentRouteIndex > 0 ? routeHistory[currentRouteIndex - 1] : null
+  const previousRoute =
+    currentRouteIndex > 0 ? routeHistory[currentRouteIndex - 1] : null
   const getPageStack = useCallback(
     function () {
       return routeHistory.slice(0, currentRouteIndex + 1)
@@ -69,15 +70,15 @@ function RouteProvider (props) {
         previousRoute,
         currentRoute,
         getPageStack,
-        routeBack: function() {
+        routeBack: function () {
           window.history.back()
         },
-        routeForward: function() {
+        routeForward: function () {
           window.history.forward()
         },
-        routeTo: function ({route, animationType}) {
+        routeTo: function ({ route, animationType }) {
           const index = indices.current.index
-          window.history.pushState({index}, null, `#${route}`)
+          window.history.pushState({ index }, null, `#${route}`)
           indices.current.currentStateIndex = index
           indices.current.index = index + 1
           dispatch({ type: ROUTE_TO, route, animationType })
@@ -86,25 +87,28 @@ function RouteProvider (props) {
     },
     [previousRoute, currentRoute, getPageStack]
   )
-  useEffect(function() {
-    function handlePopState (event) {
-      const currentStateIndex = indices.current.currentStateIndex
-      const newStateIndex = event.state == null ? -1 : event.state.index
-      if (newStateIndex < currentStateIndex) {
-        dispatch({ type: ROUTE_BACK })
-        indices.current.currentStateIndex = newStateIndex
-        return
+  useEffect(
+    function () {
+      function handlePopState (event) {
+        const currentStateIndex = indices.current.currentStateIndex
+        const newStateIndex = event.state == null ? -1 : event.state.index
+        if (newStateIndex < currentStateIndex) {
+          dispatch({ type: ROUTE_BACK })
+          indices.current.currentStateIndex = newStateIndex
+          return
+        }
+        if (newStateIndex > currentStateIndex) {
+          dispatch({ type: ROUTE_FORWARD })
+          indices.current.currentStateIndex = newStateIndex
+        }
       }
-      if (newStateIndex > currentStateIndex) {
-        dispatch({ type: ROUTE_FORWARD })
-        indices.current.currentStateIndex = newStateIndex
+      window.addEventListener('popstate', handlePopState)
+      return function () {
+        window.removeEventListener('popstate', handlePopState)
       }
-    }
-    window.addEventListener('popstate', handlePopState)
-    return function() {
-      window.removeEventListener('popstate', handlePopState)
-    }
-  }, [state])
+    },
+    [state]
+  )
   return <RouteContext.Provider value={value} {...rest} />
 }
 

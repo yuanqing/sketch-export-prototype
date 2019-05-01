@@ -3,30 +3,7 @@ import { Transition } from 'react-transition-group'
 
 import HotspotLayers from './hotspot-layers'
 import FixedLayers from './fixed-layers'
-
-const transitionStyles = {
-  none: {
-    duration: 200,
-    entering: { opacity: 0 },
-    entered: { opacity: 1 },
-    exiting: { opacity: 1 },
-    exited: { opacity: 0 }
-  },
-  slideFromRight: {
-    duration: 300,
-    entering: { left: '100%' },
-    entered: { left: '0%' },
-    exiting: { left: '0%' },
-    exited: { left: '100%' }
-  },
-  slideFromBottom: {
-    duration: 300,
-    entering: { top: '100%' },
-    entered: { top: '0%' },
-    exiting: { top: '0%' },
-    exited: { top: '100%' }
-  }
-}
+import transitionStyles from './transition-styles'
 
 export default function Page ({
   in: inProp,
@@ -45,12 +22,10 @@ export default function Page ({
   }
   const style = {
     position: 'absolute',
-    top: 0,
-    left: 0,
     width: viewportWidth,
     height: viewportHeight,
-    backgroundColor: '#fff',
-    transition: `all ${duration}ms ease`
+    transition: `all ${duration}ms ease`,
+    backgroundColor: '#fff'
   }
   const scrollableProps = {
     style: {
@@ -66,7 +41,7 @@ export default function Page ({
     src: image.fileName,
     style: {
       display: 'block',
-      width: image.width,
+      width: 375,
       height: image.height
     }
   }

@@ -12,7 +12,6 @@ export default function HotspotLayer ({ data }) {
   }
   const props = {
     style: {
-      cursor: 'default',
       position: 'absolute',
       top: y,
       left: x,

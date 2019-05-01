@@ -12,7 +12,7 @@ export default function FixedLayer ({ data, pageHeight, viewportHeight }) {
   } else {
     return null
   }
-  const props = {
+  const imgProps = fileName && {
     src: fileName,
     style: {
       display: 'block',
@@ -31,12 +31,15 @@ export default function FixedLayer ({ data, pageHeight, viewportHeight }) {
       y,
       hotspot
     }
-    return (
-      <div>
-        <img {...props} />
-        <HotspotLayer data={hotspotLayer} />
-      </div>
-    )
+    if (imgProps) {
+      return (
+        <div>
+          <img {...imgProps} />
+          <HotspotLayer data={hotspotLayer} />
+        </div>
+      )
+    }
+    return <HotspotLayer data={hotspotLayer} />
   }
-  return <img {...props} />
+  return <img {...imgProps} />
 }

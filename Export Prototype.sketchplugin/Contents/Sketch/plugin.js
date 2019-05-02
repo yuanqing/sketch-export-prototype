@@ -86,9 +86,9 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../../../private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e2b3d458-4fc4-4240-a877-c154dfdf6250":
+/***/ "../../../../../private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e5155321-8831-44ce-867d-bb77a0211df9":
 /*!*****************************************************************************************************!*\
-  !*** /private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e2b3d458-4fc4-4240-a877-c154dfdf6250 ***!
+  !*** /private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e5155321-8831-44ce-867d-bb77a0211df9 ***!
   \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2173,6 +2173,7 @@ function createPage({
   return {
     id: artboard.id,
     title: artboard.name,
+    isStartPoint: artboard.flowStartPoint === true,
     image: {
       fileName: Object(_create_image_filename__WEBPACK_IMPORTED_MODULE_1__["default"])(artboard.id),
       width,
@@ -2461,12 +2462,12 @@ function settings() {
 
 /***/ 0:
 /*!***********************************************************************************************************!*\
-  !*** multi /private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e2b3d458-4fc4-4240-a877-c154dfdf6250 ***!
+  !*** multi /private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e5155321-8831-44ce-867d-bb77a0211df9 ***!
   \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e2b3d458-4fc4-4240-a877-c154dfdf6250 */"../../../../../private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e2b3d458-4fc4-4240-a877-c154dfdf6250");
+module.exports = __webpack_require__(/*! /private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e5155321-8831-44ce-867d-bb77a0211df9 */"../../../../../private/var/folders/3m/k48sh8d10bx5knjrzyvhpb8h0000gn/T/e5155321-8831-44ce-867d-bb77a0211df9");
 
 
 /***/ }),

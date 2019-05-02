@@ -1,14 +1,11 @@
 import { iterateNestedLayers, iterateParentLayers } from 'sketch-plugin-helper'
 import { writeFileSync } from '@skpm/fs'
 
-import {prototypeDataFile} from '../constants'
+import { prototypeDataFile } from '../constants'
 import createPage from './create-page'
 import writeImages from './write-images'
 
-export default function buildPrototype ({
-  artboards,
-  outputDirectoryPath
-}) {
+export default function buildPrototype ({ artboards, outputDirectoryPath }) {
   const startIds = []
   const pages = {}
   artboards.forEach(function (artboard) {

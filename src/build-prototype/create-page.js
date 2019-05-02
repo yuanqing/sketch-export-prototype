@@ -7,6 +7,7 @@ export default function createPage ({ artboard, fixedLayers, hotspotLayers }) {
   return {
     id: artboard.id,
     title: artboard.name,
+    isStartPoint: artboard.flowStartPoint === true,
     image: {
       fileName: createImageFileName(artboard.id),
       width,

@@ -2,7 +2,10 @@ import { basename, dirname } from 'path'
 import webpack from 'webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 
-import {prototypeViewerEntryFile, prototypeViewerBundleFile} from '../constants'
+import {
+  prototypeViewerEntryFile,
+  prototypeViewerBundleFile
+} from '../constants'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const mode = isDevelopment ? 'development' : 'production'

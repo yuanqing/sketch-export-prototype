@@ -4,7 +4,7 @@ import { imageFormat, imageScale, imagesDirectory } from '../constants'
 
 function setLayerVisibilityFactory (isVisible) {
   return function (layers) {
-    layers.forEach(function ({layer}) {
+    layers.forEach(function ({ layer }) {
       layer.hidden = !isVisible
     })
   }
@@ -18,7 +18,7 @@ export default function writeImages ({
   fixedLayers,
   outputDirectoryPath
 }) {
-  fixedLayers.forEach(function ({hasImage, layer}) {
+  fixedLayers.forEach(function ({ hasImage, layer }) {
     if (hasImage) {
       writeImage({
         layer,

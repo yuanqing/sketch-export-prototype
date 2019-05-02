@@ -58,6 +58,10 @@ function RouteProvider (props) {
   const currentRoute = routeHistory[currentRouteIndex]
   const previousRoute =
     currentRouteIndex > 0 ? routeHistory[currentRouteIndex - 1] : null
+  const nextRoute =
+    currentRouteIndex < routeHistory.length - 1
+      ? routeHistory[routeHistory.length - 2]
+      : null
   const getPageStack = useCallback(
     function () {
       return routeHistory.slice(0, currentRouteIndex + 1)
@@ -67,8 +71,9 @@ function RouteProvider (props) {
   const value = useMemo(
     function () {
       return {
-        previousRoute,
         currentRoute,
+        previousRoute,
+        nextRoute,
         getPageStack,
         routeBack: function () {
           window.history.back()

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import getLocationHash from '../get-location-hash'
+import Navigation from './navigation'
 import Pages from './pages'
 import { RouteProvider } from '../route-context'
 import { ViewportProvider } from '../viewport-context'
@@ -31,6 +32,7 @@ export default function App ({
         viewportHeight={viewportHeight}
       >
         <RouteProvider initialRoute={startId}>
+          <Navigation data={pages} />
           <Pages data={pages} />
         </RouteProvider>
       </ViewportProvider>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { TransitionGroup } from 'react-transition-group'
 
 import Page from './page'
@@ -7,14 +7,14 @@ import { useViewport } from '../viewport-context'
 
 export default function Pages ({ data }) {
   const { viewportWidth, viewportHeight } = useViewport()
-  const { getPageStack } = useRoute()
+  const { currentRoute, getPageStack } = useRoute()
   const pageStack = getPageStack()
-  useEffect(function() {
-    const currentRoute = pageStack[pageStack.length - 1]
-    if (currentRoute) {
+  useEffect(
+    function () {
       document.title = data[currentRoute.route].title
-    }
-  }, [pageStack])
+    },
+    [currentRoute]
+  )
   return (
     <TransitionGroup>
       {pageStack.map(function ({ route, animationType }, index) {

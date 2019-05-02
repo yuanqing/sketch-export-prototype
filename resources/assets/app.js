@@ -27480,9 +27480,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _get_location_hash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../get-location-hash */ "./src/app/get-location-hash.js");
-/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages */ "./src/app/components/pages.js");
-/* harmony import */ var _route_context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../route-context */ "./src/app/route-context.js");
-/* harmony import */ var _viewport_context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../viewport-context */ "./src/app/viewport-context.js");
+/* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navigation */ "./src/app/components/navigation.js");
+/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages */ "./src/app/components/pages.js");
+/* harmony import */ var _route_context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../route-context */ "./src/app/route-context.js");
+/* harmony import */ var _viewport_context__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../viewport-context */ "./src/app/viewport-context.js");
+
 
 
 
@@ -27509,12 +27511,14 @@ function App({
   const startId = Object(_get_location_hash__WEBPACK_IMPORTED_MODULE_1__["default"])() || startIds[0] || Object.keys(pages)[0];
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     style: style
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_viewport_context__WEBPACK_IMPORTED_MODULE_4__["ViewportProvider"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_viewport_context__WEBPACK_IMPORTED_MODULE_5__["ViewportProvider"], {
     viewportWidth: viewportWidth,
     viewportHeight: viewportHeight
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_context__WEBPACK_IMPORTED_MODULE_3__["RouteProvider"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_context__WEBPACK_IMPORTED_MODULE_4__["RouteProvider"], {
     initialRoute: startId
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_navigation__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    data: pages
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pages__WEBPACK_IMPORTED_MODULE_3__["default"], {
     data: pages
   }))));
 }
@@ -27726,6 +27730,57 @@ function HotspotLayers({
 
 /***/ }),
 
+/***/ "./src/app/components/navigation.js":
+/*!******************************************!*\
+  !*** ./src/app/components/navigation.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Navigation; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _route_context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../route-context */ "./src/app/route-context.js");
+
+
+function Navigation({
+  data
+}) {
+  const {
+    currentRoute,
+    previousRoute,
+    nextRoute,
+    routeBack,
+    routeForward,
+    routeTo
+  } = Object(_route_context__WEBPACK_IMPORTED_MODULE_1__["useRoute"])();
+  const handleOnChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (event) {
+    routeTo({
+      route: event.target.value,
+      animationType: 'none'
+    });
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    disabled: previousRoute === null,
+    onClick: routeBack
+  }, "\u2190"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    disabled: nextRoute === null,
+    onClick: routeForward
+  }, "\u2192"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    value: currentRoute.route,
+    onChange: handleOnChange
+  }, Object.keys(data).map(function (id) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: id,
+      value: id
+    }, data[id].title);
+  })));
+}
+
+/***/ }),
+
 /***/ "./src/app/components/page.js":
 /*!************************************!*\
   !*** ./src/app/components/page.js ***!
@@ -27768,8 +27823,7 @@ function Page({
     position: 'absolute',
     width: viewportWidth,
     height: viewportHeight,
-    transition: `all ${duration}ms ease`,
-    backgroundColor: '#fff'
+    transition: `all ${duration}ms ease`
   };
   const scrollableProps = {
     style: {
@@ -27836,16 +27890,13 @@ function Pages({
     viewportHeight
   } = Object(_viewport_context__WEBPACK_IMPORTED_MODULE_4__["useViewport"])();
   const {
+    currentRoute,
     getPageStack
   } = Object(_route_context__WEBPACK_IMPORTED_MODULE_3__["useRoute"])();
   const pageStack = getPageStack();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    const currentRoute = pageStack[pageStack.length - 1];
-
-    if (currentRoute) {
-      document.title = data[currentRoute.route].title;
-    }
-  }, [pageStack]);
+    document.title = data[currentRoute.route].title;
+  }, [currentRoute]);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_transition_group__WEBPACK_IMPORTED_MODULE_1__["TransitionGroup"], null, pageStack.map(function ({
     route,
     animationType
@@ -28068,13 +28119,15 @@ function RouteProvider(props) {
   } = state;
   const currentRoute = routeHistory[currentRouteIndex];
   const previousRoute = currentRouteIndex > 0 ? routeHistory[currentRouteIndex - 1] : null;
+  const nextRoute = currentRouteIndex < routeHistory.length - 1 ? routeHistory[routeHistory.length - 2] : null;
   const getPageStack = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function () {
     return routeHistory.slice(0, currentRouteIndex + 1);
   }, [routeHistory, currentRouteIndex]);
   const value = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
     return {
-      previousRoute,
       currentRoute,
+      previousRoute,
+      nextRoute,
       getPageStack,
       routeBack: function () {
         window.history.back();

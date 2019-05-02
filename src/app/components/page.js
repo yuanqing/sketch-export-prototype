@@ -24,8 +24,7 @@ export default function Page ({
     position: 'absolute',
     width: viewportWidth,
     height: viewportHeight,
-    transition: `all ${duration}ms ease`,
-    backgroundColor: '#fff'
+    transition: `all ${duration}ms ease`
   }
   const scrollableProps = {
     style: {

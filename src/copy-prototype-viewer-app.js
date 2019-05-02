@@ -1,10 +1,7 @@
 import { getPluginResourcesDirectoryPath } from 'sketch-plugin-helper'
 import { copyFileSync } from '@skpm/fs'
 
-import {
-  prototypeViewerBundleFile,
-  prototypeViewerFile
-} from './constants'
+import { prototypeViewerBundleFile, prototypeViewerFile } from './constants'
 
 export default function copyPrototypeViewerApp (outputDirectoryPath) {
   const pluginResourcesDirectory = getPluginResourcesDirectoryPath()

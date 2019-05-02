@@ -28,7 +28,7 @@
     "webpack": "^4.30.0"
   },
   "scripts": {
-    "build": "concurrently 'yarn run build-app' 'yarn run build-plugin'",
+    "build": "yarn run build-app && yarn run build-plugin",
     "build-app": "node src/app/build-esm.js",
     "build-plugin": "sph build",
     "fix": "sph lint --fix",
@@ -36,9 +36,7 @@
     "symlink": "sph symlink",
     "unlink": "sph symlink --delete",
     "version": "sph version",
-    "watch": "concurrently 'yarn run watch-app' 'yarn run watch-plugin'",
-    "watch-app": "NODE_ENV=development chokidar 'src/app/**/*.js' --initial --command 'yarn build-app'",
-    "watch-plugin": "sph build --watch"
+    "watch": "NODE_ENV=development chokidar 'src/**/*.js' --initial --command 'yarn build && sph run export-prototype --background'"
   },
   "sketch-plugin-helper": {
     "name": "Export Prototype",

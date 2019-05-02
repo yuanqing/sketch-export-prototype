@@ -15,18 +15,32 @@ export default function Pages ({ data }) {
     },
     [currentRoute]
   )
+  const style = {
+    cursor: 'pointer',
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    marginTop: Math.floor(viewportHeight / 2) * -1,
+    marginLeft: Math.floor(viewportWidth / 2) * -1,
+    width: viewportWidth,
+    height: viewportHeight,
+    borderRadius: 10,
+    overflow: 'hidden'
+  }
   return (
-    <TransitionGroup>
-      {pageStack.map(function ({ route, animationType }, index) {
-        const props = {
-          key: `${route}-${animationType}-${index}`,
-          data: data[route],
-          animationType,
-          viewportWidth,
-          viewportHeight
-        }
-        return <Page {...props} />
-      })}
-    </TransitionGroup>
+    <div style={style}>
+      <TransitionGroup>
+        {pageStack.map(function ({ route, animationType }, index) {
+          const props = {
+            key: `${route}-${animationType}-${index}`,
+            data: data[route],
+            animationType,
+            viewportWidth,
+            viewportHeight
+          }
+          return <Page {...props} />
+        })}
+      </TransitionGroup>
+    </div>
   )
 }

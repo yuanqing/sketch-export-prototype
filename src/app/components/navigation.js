@@ -12,13 +12,19 @@ export default function Navigation ({ data }) {
   } = useRoute()
   const handleOnChange = useCallback(function (event) {
     routeTo({ route: event.target.value, animationType: 'none' })
-  })
+  }, [])
+  const handleBackButtonOnClick = useCallback(function () {
+    routeBack()
+  }, [])
+  const handleForwardButtonOnClick = useCallback(function () {
+    routeForward()
+  }, [])
   return (
     <div>
-      <button disabled={previousRoute === null} onClick={routeBack}>
+      <button disabled={previousRoute === null} onClick={handleBackButtonOnClick}>
         ←
       </button>
-      <button disabled={nextRoute === null} onClick={routeForward}>
+      <button disabled={nextRoute === null} onClick={handleForwardButtonOnClick}>
         →
       </button>
       <select value={currentRoute.route} onChange={handleOnChange}>

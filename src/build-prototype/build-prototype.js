@@ -20,7 +20,6 @@ export default function buildPrototype ({ artboards, outputDirectoryPath }) {
       }
       if (isLayerFixed(layer)) {
         // Fixed image
-        console.log('isLayerFixed', layer.name)
         fixedLayers.push({ hasImage: true, layer })
         return
       }

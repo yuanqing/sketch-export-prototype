@@ -21,23 +21,6 @@ export default function Navigation ({ pages }) {
   const handleForwardButtonOnClick = useCallback(function () {
     routeForward()
   }, [])
-  const optionElements = []
-  pages.forEach(function (page) {
-    optionElements.push(
-      <option key={page.id} disabled={true}>
-        {page.name}
-      </option>
-    )
-    page.artboards.forEach(function (artboard) {
-      optionElements.push(
-        <option key={artboard.id} value={artboard.id}>
-          {artboard.isStartPoint ? '⚑' : `${EN_SPACE}`}
-          {'  '}
-          {artboard.name}
-        </option>
-      )
-    })
-  })
   return (
     <div>
       <button
@@ -53,7 +36,20 @@ export default function Navigation ({ pages }) {
         →
       </button>
       <select value={currentRoute.route} onChange={handleOnChange}>
-        {optionElements}
+        {pages.map(function (page) {
+          return (
+            <optgroup key={page.id} label={page.name}>
+              {page.artboards.map(function (artboard) {
+                return (
+                  <option key={artboard.id} value={artboard.id}>
+                    {artboard.isStartPoint ? '⚑' : `${EN_SPACE}`}{' '}
+                    {artboard.name}
+                  </option>
+                )
+              })}
+            </optgroup>
+          )
+        })}
       </select>
     </div>
   )

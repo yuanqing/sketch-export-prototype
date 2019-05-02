@@ -1,8 +1,7 @@
 import {
-  getArtboardsOnAllPages,
+  getAllPages,
   getCurrentDocument,
   getSettings,
-  showErrorMessage,
   showSuccessMessage
 } from 'sketch-plugin-helper'
 import { existsSync, rmdirSync } from '@skpm/fs'
@@ -11,11 +10,7 @@ import buildPrototype from './build-prototype/build-prototype'
 import copyPrototypeViewerApp from './copy-prototype-viewer-app'
 
 export default function exportPrototype () {
-  const artboards = getArtboardsOnAllPages()
-  if (artboards.lengths === 0) {
-    showErrorMessage('No artboards')
-    return
-  }
+  const pages = getAllPages()
   const settings = getSettings()
   const outputDirectoryPath = createOutputDirectoryPath(
     settings.outputDirectoryPath
@@ -24,7 +19,7 @@ export default function exportPrototype () {
     rmdirSync(outputDirectoryPath)
   }
   buildPrototype({
-    artboards,
+    pages,
     outputDirectoryPath
   })
   copyPrototypeViewerApp(outputDirectoryPath)

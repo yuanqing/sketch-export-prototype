@@ -2,11 +2,15 @@ import { getCoordinatesRelativeToArtboard } from 'sketch-plugin-helper'
 
 import createImageFileName from './create-image-filename'
 
-export default function createPage ({ artboard, fixedLayers, hotspotLayers }) {
+export default function createArtboard ({
+  artboard,
+  fixedLayers,
+  hotspotLayers
+}) {
   const { width, height } = artboard.frame
   return {
     id: artboard.id,
-    title: artboard.name,
+    name: artboard.name,
     isStartPoint: artboard.flowStartPoint === true,
     image: {
       fileName: createImageFileName(artboard.id),

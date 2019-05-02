@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import { TransitionGroup } from 'react-transition-group'
 
-import Page from './page'
+import Artboard from './artboard'
 import { useRoute } from '../route-context'
 import { useViewport } from '../viewport-context'
 
-export default function Pages ({ data }) {
+export default function Artboards ({ getArtboardById }) {
   const { viewportWidth, viewportHeight } = useViewport()
   const { currentRoute, getPageStack } = useRoute()
   const pageStack = getPageStack()
   useEffect(
     function () {
-      document.title = data[currentRoute.route].title
+      document.title = getArtboardById(currentRoute.route).name
     },
     [currentRoute]
   )
@@ -33,12 +33,12 @@ export default function Pages ({ data }) {
         {pageStack.map(function ({ route, animationType }, index) {
           const props = {
             key: `${route}-${animationType}-${index}`,
-            data: data[route],
+            data: getArtboardById(route),
             animationType,
             viewportWidth,
             viewportHeight
           }
-          return <Page {...props} />
+          return <Artboard {...props} />
         })}
       </TransitionGroup>
     </div>

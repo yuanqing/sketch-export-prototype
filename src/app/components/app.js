@@ -1,26 +1,44 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import getLocationHash from '../get-location-hash'
 import Navigation from './navigation'
-import Pages from './pages'
+import Artboards from './artboards'
 import { RouteProvider } from '../route-context'
 import { ViewportProvider } from '../viewport-context'
 
 export default function App ({
   viewportWidth,
   viewportHeight,
-  startIds,
+  startPointArtboardIds,
   pages
 }) {
-  const startId = getLocationHash() || startIds[0] || Object.keys(pages)[0]
+  const startId =
+    getLocationHash() || startPointArtboardIds[0] || Object.keys(pages)[0]
+  const getArtboardById = useCallback(
+    function (route) {
+      let result = null
+      pages.forEach(function (page) {
+        page.artboards.forEach(function (artboard) {
+          if (result) {
+            return
+          }
+          if (artboard.id == route) {
+            result = artboard
+          }
+        })
+      })
+      return result
+    },
+    [pages]
+  )
   return (
     <ViewportProvider
       viewportWidth={viewportWidth}
       viewportHeight={viewportHeight}
     >
       <RouteProvider initialRoute={startId}>
-        <Navigation data={pages} />
-        <Pages data={pages} />
+        <Navigation pages={pages} />
+        <Artboards getArtboardById={getArtboardById} />
       </RouteProvider>
     </ViewportProvider>
   )

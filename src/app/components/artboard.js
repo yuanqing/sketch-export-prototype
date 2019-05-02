@@ -5,7 +5,7 @@ import HotspotLayers from './hotspot-layers'
 import FixedLayers from './fixed-layers'
 import transitionStyles from './transition-styles'
 
-export default function Page ({
+export default function Artboard ({
   in: inProp,
   data,
   animationType,

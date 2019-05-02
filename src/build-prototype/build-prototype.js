@@ -2,46 +2,62 @@ import { iterateNestedLayers, iterateParentLayers } from 'sketch-plugin-helper'
 import { writeFileSync } from '@skpm/fs'
 
 import { prototypeDataFile } from '../constants'
-import createPage from './create-page'
+import createArtboard from './create-artboard'
 import writeImages from './write-images'
 
-export default function buildPrototype ({ artboards, outputDirectoryPath }) {
-  const startIds = []
-  const pages = {}
-  artboards.forEach(function (artboard) {
-    if (artboard.flowStartPoint) {
-      startIds.push(artboard.id)
+export default function buildPrototype ({ pages, outputDirectoryPath }) {
+  const startPointArtboardIds = []
+  const pagesData = []
+  pages.forEach(function (page) {
+    if (page.isSymbolsPage()) {
+      return
     }
-    const fixedLayers = []
-    const hotspotLayers = []
-    iterateNestedLayers(artboard.layers, function (layer) {
-      if (layer.hidden) {
+    const artboardsData = []
+    page.layers.forEach(function (layer) {
+      if (layer.type !== 'Artboard') {
         return
       }
-      if (isLayerFixed(layer)) {
-        // Fixed image
-        fixedLayers.push({ hasImage: true, layer })
-        return
+      const artboard = layer
+      if (artboard.flowStartPoint) {
+        startPointArtboardIds.push(artboard.id)
       }
-      if (layer.flow) {
-        // Fixed hotspot
-        if (isLayerInFixedGroup(layer)) {
-          fixedLayers.push({ hasImage: false, layer })
+      const fixedLayers = []
+      const hotspotLayers = []
+      iterateNestedLayers(artboard.layers, function (layer) {
+        if (layer.hidden) {
           return
         }
-        // Non-fixed hotspot
-        hotspotLayers.push(layer)
-      }
+        if (isLayerFixed(layer)) {
+          // Fixed image
+          fixedLayers.push({ hasImage: true, layer })
+          return
+        }
+        if (layer.flow) {
+          // Fixed hotspot
+          if (isLayerInFixedGroup(layer)) {
+            fixedLayers.push({ hasImage: false, layer })
+            return
+          }
+          // Non-fixed hotspot
+          hotspotLayers.push(layer)
+        }
+      })
+      const artboardData = createArtboard({
+        artboard,
+        fixedLayers,
+        hotspotLayers
+      })
+      artboardsData.push(artboardData)
+      writeImages({
+        artboard,
+        fixedLayers,
+        outputDirectoryPath
+      })
     })
-    pages[artboard.id] = createPage({
-      artboard,
-      fixedLayers,
-      hotspotLayers
-    })
-    writeImages({
-      artboard,
-      fixedLayers,
-      outputDirectoryPath
+    pagesData.push({
+      name: page.name,
+      id: page.id,
+      artboards: artboardsData
     })
   })
   buildPrototypeDataFile({
@@ -49,8 +65,8 @@ export default function buildPrototype ({ artboards, outputDirectoryPath }) {
     config: {
       viewportWidth: 375,
       viewportHeight: 812,
-      startIds,
-      pages
+      startPointArtboardIds,
+      pages: pagesData
     }
   })
 }

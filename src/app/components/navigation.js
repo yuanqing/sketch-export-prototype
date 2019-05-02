@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react'
 import { useRoute } from '../route-context'
 
-export default function Navigation ({ data }) {
+const EN_SPACE = '\u2002'
+
+export default function Navigation ({ pages }) {
   const {
     currentRoute,
     previousRoute,
@@ -19,6 +21,23 @@ export default function Navigation ({ data }) {
   const handleForwardButtonOnClick = useCallback(function () {
     routeForward()
   }, [])
+  const optionElements = []
+  pages.forEach(function (page) {
+    optionElements.push(
+      <option key={page.id} disabled={true}>
+        {page.name}
+      </option>
+    )
+    page.artboards.forEach(function (artboard) {
+      optionElements.push(
+        <option key={artboard.id} value={artboard.id}>
+          {artboard.isStartPoint ? '⚑' : `${EN_SPACE}`}
+          {'  '}
+          {artboard.name}
+        </option>
+      )
+    })
+  })
   return (
     <div>
       <button
@@ -34,13 +53,7 @@ export default function Navigation ({ data }) {
         →
       </button>
       <select value={currentRoute.route} onChange={handleOnChange}>
-        {Object.keys(data).map(function (id) {
-          return (
-            <option key={id} value={id}>
-              {data[id].title}
-            </option>
-          )
-        })}
+        {optionElements}
       </select>
     </div>
   )

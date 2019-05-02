@@ -21,10 +21,16 @@ export default function Navigation ({ data }) {
   }, [])
   return (
     <div>
-      <button disabled={previousRoute === null} onClick={handleBackButtonOnClick}>
+      <button
+        disabled={previousRoute === null}
+        onClick={handleBackButtonOnClick}
+      >
         ←
       </button>
-      <button disabled={nextRoute === null} onClick={handleForwardButtonOnClick}>
+      <button
+        disabled={nextRoute === null}
+        onClick={handleForwardButtonOnClick}
+      >
         →
       </button>
       <select value={currentRoute.route} onChange={handleOnChange}>

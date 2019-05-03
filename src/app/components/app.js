@@ -37,7 +37,7 @@ export default function App ({
       viewportHeight={viewportHeight}
     >
       <RouteProvider initialRoute={startId}>
-        <Navigation pages={pages} />
+        <Navigation pages={pages} viewportWidth={viewportWidth} />
         <Artboards getArtboardById={getArtboardById} />
       </RouteProvider>
     </ViewportProvider>

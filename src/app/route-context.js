@@ -7,6 +7,8 @@ import React, {
   useRef
 } from 'react'
 
+import getLocationHash from './get-location-hash'
+
 export { RouteProvider, useRoute }
 
 const RouteContext = createContext()
@@ -92,6 +94,11 @@ function RouteProvider (props) {
       function handlePopState (event) {
         const currentStateIndex = indices.current.currentStateIndex
         const newStateIndex = event.state == null ? -1 : event.state.index
+        if (newStateIndex == -1 || newStateIndex > routeHistory.length - 1) {
+          const route = getLocationHash()
+          dispatch({ type: ROUTE_TO, route, animationType: 'appear' })
+          return
+        }
         if (newStateIndex < currentStateIndex) {
           dispatch({ type: ROUTE_BACK })
           indices.current.currentStateIndex = newStateIndex

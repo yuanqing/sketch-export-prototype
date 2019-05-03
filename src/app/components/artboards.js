@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { TransitionGroup } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import Artboard from './artboard'
 import { useRoute } from '../route-context'
@@ -15,30 +15,30 @@ export default function Artboards ({ getArtboardById }) {
     },
     [currentRoute]
   )
-  const style = {
-    cursor: 'pointer',
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
+  const artboardsStyle = {
     marginTop: Math.floor(viewportHeight / 2) * -1,
     marginLeft: Math.floor(viewportWidth / 2) * -1,
     width: viewportWidth,
-    height: viewportHeight,
-    borderRadius: 10,
-    overflow: 'hidden'
+    height: viewportHeight
   }
   return (
-    <div style={style}>
+    <div className='Artboards' style={artboardsStyle}>
       <TransitionGroup>
         {pageStack.map(function ({ route, animationType }, index) {
-          const props = {
-            key: `${route}-${animationType}-${index}`,
-            data: getArtboardById(route),
-            animationType,
-            viewportWidth,
-            viewportHeight
-          }
-          return <Artboard {...props} />
+          return (
+            <CSSTransition
+              classNames={`Artboards-artboard--${animationType}`}
+              key={`${route}-${animationType}-${index}`}
+              timeout={animationType === 'appear' ? 200 : 400}
+            >
+              <Artboard
+                artboard={getArtboardById(route)}
+                animationType={animationType}
+                viewportWidth={viewportWidth}
+                viewportHeight={viewportHeight}
+              />
+            </CSSTransition>
+          )
         })}
       </TransitionGroup>
     </div>

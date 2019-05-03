@@ -2,27 +2,29 @@ import React from 'react'
 
 import HotspotLayer from './hotspot-layer'
 
-export default function FixedLayer ({ data, pageHeight, viewportHeight }) {
-  const { fileName, x, y, width, height, hotspot } = data
+export default function FixedLayer ({
+  children,
+  artboardHeight,
+  viewportHeight
+}) {
+  const { fileName, x, y, width, height, hotspot } = children
   let top
   if (y < viewportHeight) {
     top = y
-  } else if (pageHeight - y - height < viewportHeight) {
-    top = viewportHeight - pageHeight + y
+  } else if (artboardHeight - y - height < viewportHeight) {
+    top = viewportHeight - artboardHeight + y
   } else {
     return null
   }
-  const imgProps = fileName && {
-    src: fileName,
-    style: {
-      display: 'block',
-      position: 'absolute',
-      top,
-      left: x,
-      width,
-      height
-    }
+  const imageStyle = {
+    top,
+    left: x,
+    width,
+    height
   }
+  const imageElement = fileName && (
+    <img className='FixedLayer-image' src={fileName} style={imageStyle} />
+  )
   if (hotspot) {
     const hotspotLayer = {
       width,
@@ -31,15 +33,16 @@ export default function FixedLayer ({ data, pageHeight, viewportHeight }) {
       y,
       hotspot
     }
-    if (imgProps) {
+    const hotspotLayerElement = <HotspotLayer>{hotspotLayer}</HotspotLayer>
+    if (imageElement) {
       return (
         <div>
-          <img {...imgProps} />
-          <HotspotLayer data={hotspotLayer} />
+          {imageElement}
+          {hotspotLayerElement}
         </div>
       )
     }
-    return <HotspotLayer data={hotspotLayer} />
+    return hotspotLayerElement
   }
-  return <img {...imgProps} />
+  return imageElement
 }

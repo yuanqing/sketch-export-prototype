@@ -51,7 +51,7 @@ function collectHotspotValues ({ flow }) {
   return {
     hotspot: {
       targetId,
-      animationType
+      animationType: animationType === 'none' ? 'appear' : animationType
     }
   }
 }

@@ -2,10 +2,7 @@ import { basename, dirname } from 'path'
 import webpack from 'webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 
-import {
-  prototypeViewerEntryFile,
-  prototypeViewerBundleFile
-} from '../constants'
+import { prototypeViewerEntryFile, prototypeViewerJsFile } from '../constants'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const mode = isDevelopment ? 'development' : 'production'
@@ -14,8 +11,8 @@ const webpackConfig = {
   mode,
   entry: prototypeViewerEntryFile,
   output: {
-    path: `${process.cwd()}/resources/${dirname(prototypeViewerBundleFile)}`,
-    filename: basename(prototypeViewerBundleFile)
+    path: `${process.cwd()}/resources/${dirname(prototypeViewerJsFile)}`,
+    filename: basename(prototypeViewerJsFile)
   },
   module: {
     rules: [

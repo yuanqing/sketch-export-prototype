@@ -1,0 +1,4 @@
+* { box-sizing: border-box; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+body { background-color: #000; }
+.NavigationButton {width: 32px; height: 32px; }
+.NavigationButton--disabled {width: 32px; height: 32px; }

@@ -28,10 +28,12 @@ export default function Navigation ({ pages }) {
     <div>
       <ArrowLeft
         disabled={previousRoute === null}
-        onClick={previousRoute && handleBackButtonOnClick} />
+        onClick={previousRoute && handleBackButtonOnClick}
+      />
       <ArrowRight
         disabled={nextRoute === null}
-        onClick={nextRoute && handleForwardButtonOnClick} />
+        onClick={nextRoute && handleForwardButtonOnClick}
+      />
       <select value={currentRoute.route} onChange={handleOnChange}>
         {pages.map(function (page) {
           return (

@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -62,19 +61,15 @@ function RouteProvider (props) {
     currentRouteIndex < routeHistory.length - 1
       ? routeHistory[routeHistory.length - 2]
       : null
-  const getPageStack = useCallback(
-    function () {
-      return routeHistory.slice(0, currentRouteIndex + 1)
-    },
-    [routeHistory, currentRouteIndex]
-  )
   const value = useMemo(
     function () {
       return {
         currentRoute,
         previousRoute,
         nextRoute,
-        getPageStack,
+        getPageStack: function () {
+          return routeHistory.slice(0, currentRouteIndex + 1)
+        },
         routeBack: function () {
           window.history.back()
         },
@@ -90,7 +85,7 @@ function RouteProvider (props) {
         }
       }
     },
-    [previousRoute, currentRoute, getPageStack]
+    [previousRoute, currentRoute, currentRouteIndex]
   )
   useEffect(
     function () {

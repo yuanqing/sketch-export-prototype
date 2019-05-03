@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react'
-import { useRoute } from '../route-context'
+
+import ArrowLeft from './icons/arrow-left'
+import ArrowRight from './icons/arrow-right'
+import { useRoute } from '../../route-context'
 
 const EN_SPACE = '\u2002'
 
@@ -23,18 +26,12 @@ export default function Navigation ({ pages }) {
   }, [])
   return (
     <div>
-      <button
+      <ArrowLeft
         disabled={previousRoute === null}
-        onClick={handleBackButtonOnClick}
-      >
-        ←
-      </button>
-      <button
+        onClick={previousRoute && handleBackButtonOnClick} />
+      <ArrowRight
         disabled={nextRoute === null}
-        onClick={handleForwardButtonOnClick}
-      >
-        →
-      </button>
+        onClick={nextRoute && handleForwardButtonOnClick} />
       <select value={currentRoute.route} onChange={handleOnChange}>
         {pages.map(function (page) {
           return (

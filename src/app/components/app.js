@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 
 import getLocationHash from '../get-location-hash'
-import Navigation from './navigation'
+import Navigation from './navigation/navigation'
 import Artboards from './artboards'
 import { RouteProvider } from '../route-context'
 import { ViewportProvider } from '../viewport-context'

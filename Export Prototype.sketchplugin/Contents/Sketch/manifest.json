@@ -11,34 +11,34 @@
   "commands": [
     {
       "name": "Export Prototype",
-      "identifier": "yuanqing.sketch-export-prototype.export-prototype.export-prototype",
+      "identifier": "yuanqing.sketch-export-prototype.export-prototype",
       "script": "plugin.js",
-      "handler": "export-prototype/export-prototype"
+      "handler": "export-prototype"
     },
     {
       "name": "Settings",
-      "identifier": "yuanqing.sketch-export-prototype.export-prototype.settings.settings",
+      "identifier": "yuanqing.sketch-export-prototype.settings.settings",
       "script": "plugin.js",
-      "handler": "export-prototype/settings/settings"
+      "handler": "settings/settings"
     },
     {
       "name": "Reset Settings",
-      "identifier": "yuanqing.sketch-export-prototype.export-prototype.settings.reset-settings",
+      "identifier": "yuanqing.sketch-export-prototype.settings.reset-settings",
       "script": "plugin.js",
-      "handler": "export-prototype/settings/reset-settings"
+      "handler": "settings/reset-settings"
     }
   ],
   "menu": {
     "title": "Export Prototype",
     "items": [
-      "yuanqing.sketch-export-prototype.export-prototype.export-prototype",
+      "yuanqing.sketch-export-prototype.export-prototype",
       "-",
       {
         "title": "Settings",
         "items": [
-          "yuanqing.sketch-export-prototype.export-prototype.settings.settings",
+          "yuanqing.sketch-export-prototype.settings.settings",
           "-",
-          "yuanqing.sketch-export-prototype.export-prototype.settings.reset-settings"
+          "yuanqing.sketch-export-prototype.settings.reset-settings"
         ]
       }
     ]

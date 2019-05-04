@@ -23,7 +23,7 @@ export default function App ({
           if (result) {
             return
           }
-          if (artboard.id == route) {
+          if (artboard.id === route) {
             result = artboard
           }
         })

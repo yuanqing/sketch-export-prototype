@@ -1,26 +1,23 @@
-import { join } from 'path'
 import webpack from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
-const entryFilePath = join(__dirname, '..', '..', 'index.js')
-const outputDirectoryPath = join(
-  process.cwd(),
-  'Export Prototype.sketchplugin',
-  'Contents',
-  'Resources'
-)
-const outputFile = 'script.js'
+import {
+  outputDirectoryPath,
+  inputJsFilePath,
+  outputJsFile,
+  outputCssFile
+} from './constants'
 
 export default async function buildBundle ({ isDevelopment } = {}) {
   const mode = isDevelopment ? 'development' : 'production'
   const webpackConfig = {
     mode,
-    entry: entryFilePath,
+    entry: inputJsFilePath,
     output: {
       path: outputDirectoryPath,
-      filename: outputFile
+      filename: outputJsFile
     },
     module: {
       rules: [
@@ -54,8 +51,7 @@ export default async function buildBundle ({ isDevelopment } = {}) {
     stats: 'errors-only',
     plugins: [
       new MiniCssExtractPlugin({
-        filename: 'style.css',
-        chunkFilename: '[id].css'
+        filename: outputCssFile
       })
     ],
     optimization: {

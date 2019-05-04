@@ -1,0 +1,46 @@
+{
+  "private": true,
+  "dependencies": {
+    "@sindresorhus/class-names": "^1.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-transition-group": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "chokidar": "^3.0.0",
+    "concurrently": "^4.1.0",
+    "css-loader": "^2.1.1",
+    "esm": "^3.2.22",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prettier": "^1.17.0",
+    "prettier-standard": "^9.1.1",
+    "sass-loader": "^7.1.0",
+    "standard": "^12.0.1",
+    "stylelint": "^10.0.1",
+    "stylelint-config-prettier": "^5.1.0",
+    "stylelint-prettier": "^1.0.6",
+    "terser-webpack-plugin": "^1.2.3",
+    "webpack": "^4.30.0"
+  },
+  "scripts": {
+    "build": "node scripts/build/build.esm.js",
+    "fix": "concurrently 'yarn run fix-css' 'yarn run fix-js'",
+    "fix-css": "stylelint --fix 'src/**/*.scss'",
+    "fix-js": "prettier-standard 'scripts/**/*.js' 'src/**/*.js'",
+    "lint": "concurrently 'yarn run lint-css' 'yarn run lint-js'",
+    "lint-css": "stylelint 'src/**/*.scss'",
+    "lint-js": "standard 'scripts/**/*.js' 'src/**/*.js'",
+    "watch": "node scripts/watch/watch.esm.js"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-prettier/recommended"
+    ]
+  }
+}

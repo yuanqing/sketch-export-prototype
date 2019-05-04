@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+.selectBox {
+  flex-grow: 1;
+}

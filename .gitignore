@@ -2,4 +2,4 @@
 .vscode
 *.js.map
 *.log
-/node_modules
+node_modules/

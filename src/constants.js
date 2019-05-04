@@ -1,9 +1,0 @@
-export const assetsDirectory = 'assets'
-export const imageScale = 3
-export const imageFormat = 'png'
-export const imagesDirectory = 'assets/images'
-export const prototypeDataFile = 'assets/data.js'
-export const prototypeViewerCssFile = 'assets/style.css'
-export const prototypeViewerEntryFile = './src/app/app.js'
-export const prototypeViewerHtmlFile = 'index.html'
-export const prototypeViewerJsFile = 'assets/script.js'

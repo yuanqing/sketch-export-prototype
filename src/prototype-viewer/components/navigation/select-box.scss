@@ -1,0 +1,47 @@
+.root {
+  position: relative;
+  height: 56px;
+  padding: 12px 0;
+
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+}
+
+.select,
+.dropdownArrow {
+  color: #777;
+}
+
+.select {
+  display: block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  border: 0;
+  border-radius: 16px;
+  padding: 0 12px;
+  width: 100%;
+  height: 32px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 32px;
+  background-color: #000;
+}
+
+.dropdownArrow {
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  top: 20px;
+  width: 16px;
+  height: 16px;
+}
+
+.select:hover,
+.select:active,
+.select:hover + .dropdownArrow,
+.select:active + .dropdownArrow {
+  color: #aaa;
+}

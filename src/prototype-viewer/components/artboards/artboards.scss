@@ -1,0 +1,134 @@
+.root {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 16px;
+    box-shadow: 0 0 0 20px #222;
+  }
+}
+
+.appear {
+  &--enter {
+    opacity: 0;
+  }
+
+  &--enterActive {
+    opacity: 1;
+    transition: opacity 200ms ease;
+  }
+
+  &--exit {
+    opacity: 1;
+  }
+
+  &--exitActive {
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+}
+
+.slideFromTop {
+  &--enter {
+    left: 0;
+    bottom: 100%;
+  }
+
+  &--enterActive {
+    left: 0;
+    bottom: 0;
+    transition: bottom 400ms ease;
+  }
+
+  &--exit {
+    left: 0;
+    bottom: 0;
+  }
+
+  &--exitActive {
+    left: 0;
+    bottom: 100%;
+    transition: bottom 400ms ease;
+  }
+}
+
+.slideFromBottom {
+  &--enter {
+    left: 0;
+    top: 100%;
+  }
+
+  &--enterActive {
+    left: 0;
+    top: 0;
+    transition: top 400ms ease;
+  }
+
+  &--exit {
+    left: 0;
+    top: 0;
+  }
+
+  &--exitActive {
+    left: 0;
+    top: 100%;
+    transition: top 400ms ease;
+  }
+}
+
+.slideFromLeft {
+  &--enter {
+    right: 100%;
+    top: 0;
+  }
+
+  &--enterActive {
+    right: 0;
+    top: 0;
+    transition: right 400ms ease;
+  }
+
+  &--exit {
+    right: 0;
+    top: 0;
+  }
+
+  &--exitActive {
+    right: 100%;
+    top: 0;
+    transition: right 400ms ease;
+  }
+}
+
+.slideFromRight {
+  &--enter {
+    left: 100%;
+    top: 0;
+  }
+
+  &--enterActive {
+    left: 0;
+    top: 0;
+    transition: left 400ms ease;
+  }
+
+  &--exit {
+    left: 0;
+    top: 0;
+  }
+
+  &--exitActive {
+    left: 100%;
+    top: 0;
+    transition: left 400ms ease;
+  }
+}

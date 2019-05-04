@@ -13,58 +13,78 @@
   "dependencies": {
     "@sindresorhus/class-names": "^1.1.0",
     "@skpm/fs": "^0.2.4",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-transition-group": "^4.0.0"
+    "react-transition-group": "^4.0.0",
+    "sass-loader": "^7.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
-    "chokidar-cli": "^1.2.2",
+    "chokidar": "^3.0.0",
     "concurrently": "^4.1.0",
     "css-loader": "^2.1.1",
+    "esm": "^3.2.22",
     "mini-css-extract-plugin": "^0.6.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prettier": "^1.17.0",
     "sketch-plugin-helper": "*",
+    "stylelint": "^10.0.1",
+    "stylelint-config-prettier": "^5.1.0",
+    "stylelint-prettier": "^1.0.6",
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.30.0"
   },
   "scripts": {
-    "build": "yarn run build-app && yarn run build-plugin",
-    "build-app": "node src/app/build-esm.js",
+    "build": "yarn run build-plugin && yarn run build-app",
+    "build-app": "node src/prototype-viewer/scripts/build/build.esm.js",
     "build-plugin": "sph build",
-    "fix": "sph lint --fix",
-    "lint": "sph lint",
+    "fix": "concurrently 'yarn run fix-css' 'yarn run fix-js'",
+    "fix-css": "stylelint 'src/**/*.scss' --fix",
+    "fix-js": "sph lint --fix",
+    "lint": "concurrently 'yarn run lint-css' 'yarn run lint-js'",
+    "lint-css": "stylelint 'src/**/*.scss'",
+    "lint-js": "sph lint",
     "symlink": "sph symlink",
     "unlink": "sph symlink --delete",
     "version": "sph version",
-    "watch": "NODE_ENV=development chokidar 'src/**/*.js' --initial --command 'yarn build && sph run export-prototype --background'"
+    "watch": "concurrently 'yarn run watch-plugin' 'yarn run watch-app'",
+    "watch-app": "node src/prototype-viewer/scripts/watch/watch.esm.js",
+    "watch-plugin": "sph build --watch"
   },
   "sketch-plugin-helper": {
     "name": "Export Prototype",
+    "directory": "src/export-prototype",
     "menu": [
       {
-        "handler": "export-prototype",
+        "handler": "export-prototype/export-prototype",
         "label": "Export Prototype"
       },
       "-",
       {
         "Settings": [
           {
-            "handler": "settings/settings",
+            "handler": "export-prototype/settings/settings",
             "label": "Settings"
           },
           "-",
           {
-            "handler": "settings/reset-settings",
+            "handler": "export-prototype/settings/reset-settings",
             "label": "Reset Settings"
           }
         ]
       }
     ],
     "defaultSettings": {
-      "outputDirectoryPath": "~/Desktop/sketch-prototypes"
+      "outputDirectoryPath": "~/Desktop/Sketch Prototypes"
     }
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-prettier/recommended"
+    ]
   }
 }

@@ -1,0 +1,30 @@
+.root {
+  position: relative;
+  padding: 12px 8px 12px 0;
+  width: 40px;
+  height: 56px;
+
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+}
+
+.inner {
+  border-radius: 50%;
+  padding: 8px 0 0 9px;
+  width: 32px;
+  height: 32px;
+  color: #777;
+
+  .enabled & {
+    color: #ddd;
+    background-color: #222;
+  }
+
+  .enabled:hover &,
+  .enabled:active & {
+    color: #fff;
+    background-color: #333;
+  }
+}

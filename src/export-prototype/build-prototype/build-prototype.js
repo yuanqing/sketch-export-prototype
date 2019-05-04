@@ -90,6 +90,8 @@ function isLayerInFixedGroup (layer) {
 
 function buildPrototypeDataFile ({ outputDirectoryPath, config }) {
   const outputFilePath = `${outputDirectoryPath}/${prototypeDataFile}`
-  const fileContent = `window.__SKETCH_PROTOTYPE_DATA__=${JSON.stringify(config)}\n`
+  const fileContent = `window.__SKETCH_PROTOTYPE_DATA__=${JSON.stringify(
+    config
+  )}\n`
   writeFileSync(outputFilePath, fileContent)
 }

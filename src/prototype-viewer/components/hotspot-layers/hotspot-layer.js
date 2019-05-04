@@ -6,7 +6,7 @@ import { useRoute } from '../../contexts/route-context'
 import style from './hotspot-layer.scss'
 
 export default function HotspotLayer ({ children }) {
-  const {isVisible} = useHotspotVisibility()
+  const { isVisible } = useHotspotVisibility()
   const { width, height, x, y, hotspot } = children
   const { routeTo, routeBack, previousRoute } = useRoute()
   const { targetId, animationType } = hotspot
@@ -30,10 +30,6 @@ export default function HotspotLayer ({ children }) {
   }
   const className = classNames(style.root, isVisible && style.isVisible)
   return (
-    <a
-      className={className}
-      style={hotspotLayerStyle}
-      onClick={handleClick}
-    />
+    <a className={className} style={hotspotLayerStyle} onClick={handleClick} />
   )
 }

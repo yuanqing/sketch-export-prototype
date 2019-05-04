@@ -11,38 +11,67 @@
   "author": "Lim Yuan Qing",
   "repository": "yuanqing/sketch-export-prototype",
   "dependencies": {
-    "@skpm/fs": "^0.2.4"
+    "@sindresorhus/class-names": "^1.1.0",
+    "@skpm/fs": "^0.2.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-transition-group": "^4.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "chokidar": "^3.0.0",
     "concurrently": "^4.1.0",
-    "sketch-plugin-helper": "*"
+    "css-loader": "^2.1.1",
+    "esm": "^3.2.22",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prettier": "^1.17.0",
+    "prettier-standard": "^9.1.1",
+    "sass-loader": "^7.1.0",
+    "sketch-plugin-helper": "*",
+    "standard": "^12.0.1",
+    "stylelint": "^10.0.1",
+    "stylelint-config-prettier": "^5.1.0",
+    "stylelint-prettier": "^1.0.6",
+    "terser-webpack-plugin": "^1.2.3",
+    "webpack": "^4.30.0"
   },
   "scripts": {
-    "build": "sph build && cd prototype-viewer && yarn build",
-    "fix": "sph lint --fix && cd prototype-viewer && yarn fix",
-    "lint": "sph lint && cd prototype-viewer && yarn lint",
+    "build": "yarn run build-plugin && yarn run build-prototype-viewer",
+    "build-plugin": "sph build",
+    "build-prototype-viewer": "node src/prototype-viewer/build-prototype-viewer/build-prototype-viewer-esm.js",
+    "fix": "concurrently 'yarn run fix-css' 'yarn run fix-js'",
+    "fix-css": "stylelint --fix 'src/**/*.scss'",
+    "fix-js": "sph lint --fix",
+    "lint": "concurrently 'yarn run lint-css' 'yarn run lint-js'",
+    "lint-css": "stylelint 'src/**/*.scss'",
+    "lint-js": "sph lint",
     "symlink": "sph symlink",
     "unlink": "sph symlink --delete",
     "version": "sph version",
-    "watch": "concurrently 'sph build --watch' 'cd prototype-viewer && yarn watch'"
+    "watch": "sph build --watch 'yarn run build-prototype-viewer'"
   },
   "sketch-plugin-helper": {
     "name": "Export Prototype",
     "menu": [
       {
-        "handler": "export-prototype",
+        "handler": "export-prototype/export-prototype",
         "label": "Export Prototype"
       },
       "-",
       {
         "Settings": [
           {
-            "handler": "settings/settings",
+            "handler": "export-prototype/settings/settings",
             "label": "Settings"
           },
           "-",
           {
-            "handler": "settings/reset-settings",
+            "handler": "export-prototype/settings/reset-settings",
             "label": "Reset Settings"
           }
         ]
@@ -51,5 +80,10 @@
     "defaultSettings": {
       "outputDirectoryPath": "~/Desktop/Sketch Prototypes"
     }
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-prettier/recommended"
+    ]
   }
 }

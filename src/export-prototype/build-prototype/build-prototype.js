@@ -1,7 +1,7 @@
-import { iterateNestedLayers, iterateParentLayers } from 'sketch-plugin-helper'
 import { writeFileSync } from '@skpm/fs'
+import { iterateNestedLayers, iterateParentLayers } from 'sketch-plugin-helper'
 
-import { prototypeDataFile } from '../constants'
+import { prototypeDataFile } from './constants'
 import createArtboard from './create-artboard'
 import writeImages from './write-images'
 

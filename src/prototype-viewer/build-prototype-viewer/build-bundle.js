@@ -4,10 +4,10 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
 import {
-  outputDirectoryPath,
   inputJsFilePath,
-  outputJsFile,
-  outputCssFile
+  outputCssFile,
+  outputDirectoryPath,
+  outputJsFile
 } from './constants'
 
 export default async function buildBundle ({ isDevelopment } = {}) {

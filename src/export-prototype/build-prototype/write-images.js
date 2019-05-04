@@ -1,6 +1,6 @@
 import { export as sketchExport } from 'sketch/dom'
 
-import { imageFormat, imageScale, imagesDirectory } from '../constants'
+import { imageFormat, imageScale, imagesDirectory } from './constants'
 
 function setLayerVisibilityFactory (isVisible) {
   return function (layers) {

@@ -1,3 +1,3 @@
 // eslint-disable-next-line no-global-assign
 require = require('esm')(module)
-require('./watch.js')
+require('./build-prototype-viewer.js')

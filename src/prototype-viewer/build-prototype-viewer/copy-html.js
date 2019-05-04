@@ -1,6 +1,12 @@
+import { join, basename } from 'path'
 import { copyFile } from 'fs'
 
-import { inputHtmlFilePath, outputHtmlFilePath } from './constants'
+import { inputHtmlFilePath, outputDirectoryPath } from './constants'
+
+const outputHtmlFilePath = join(
+  outputDirectoryPath,
+  basename(inputHtmlFilePath)
+)
 
 export default async function copyHtml () {
   await new Promise(function (resolve, reject) {

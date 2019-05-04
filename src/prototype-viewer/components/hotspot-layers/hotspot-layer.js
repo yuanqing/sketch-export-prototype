@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import classNames from '@sindresorhus/class-names'
 
 import { useHotspotVisibility } from '../../contexts/hotspot-visibility-context'
@@ -20,14 +20,14 @@ export default function HotspotLayer ({ children }) {
     width,
     height
   }
-  const handleClick = function (event) {
+  const handleClick = useCallback(function (event) {
     event.stopPropagation()
     if (isRouteBack) {
       routeBack(animationType)
       return
     }
     routeTo({ route: targetId, animationType })
-  }
+  })
   const className = classNames(style.root, isVisible && style.isVisible)
   return (
     <a className={className} style={hotspotLayerStyle} onClick={handleClick} />

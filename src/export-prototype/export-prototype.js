@@ -22,13 +22,13 @@ export default function exportPrototype () {
       inputs: [
         {
           type: DROP_DOWN,
-          key: 'width',
+          key: 'viewportWidth',
           label: 'Viewport width',
           possibleValues: widths
         },
         {
           type: DROP_DOWN,
-          key: 'height',
+          key: 'viewportHeight',
           label: 'Viewport height',
           possibleValues: heights
         }
@@ -88,6 +88,9 @@ function collectArtboardDimensions (pages) {
         return
       }
       const preset = layer.sketchObject.preset()
+      if (!preset) {
+        return
+      }
       const width = preset.width()
       if (widths.indexOf(width) === -1) {
         widths.push(width)

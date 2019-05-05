@@ -27,35 +27,39 @@ export default function Navigation ({ pages, viewportWidth }) {
   const handleForwardButtonOnClick = useCallback(function () {
     routeForward()
   }, [])
-  const navigationStyle = {
-    width: viewportWidth,
-    marginLeft: Math.floor(viewportWidth / 2) * -1
+  const handleClick = useCallback(function (event) {
+    event.stopPropagation()
+  }, [])
+  const innerStyle = {
+    width: viewportWidth
   }
   return (
-    <div className={style.root} style={navigationStyle}>
-      <NavigationButton onClick={previousRoute && handleBackButtonOnClick}>
-        <ArrowLeft />
-      </NavigationButton>
-      <NavigationButton onClick={nextRoute && handleForwardButtonOnClick}>
-        <ArrowRight />
-      </NavigationButton>
-      <div className={style.selectBox}>
-        <SelectBox value={currentRoute.route} onChange={handleOnChange}>
-          {pages.map(function (page) {
-            return (
-              <optgroup key={page.id} label={page.name}>
-                {page.artboards.map(function (artboard) {
-                  return (
-                    <option key={artboard.id} value={artboard.id}>
-                      {artboard.isStartPoint ? '⚑' : `${EN_SPACE}`}{' '}
-                      {artboard.name}
-                    </option>
-                  )
-                })}
-              </optgroup>
-            )
-          })}
-        </SelectBox>
+    <div className={style.root} onClick={handleClick}>
+      <div className={style.inner} style={innerStyle}>
+        <NavigationButton onClick={previousRoute && handleBackButtonOnClick}>
+          <ArrowLeft />
+        </NavigationButton>
+        <NavigationButton onClick={nextRoute && handleForwardButtonOnClick}>
+          <ArrowRight />
+        </NavigationButton>
+        <div className={style.selectBox}>
+          <SelectBox value={currentRoute.route} onChange={handleOnChange}>
+            {pages.map(function (page) {
+              return (
+                <optgroup key={page.id} label={page.name}>
+                  {page.artboards.map(function (artboard) {
+                    return (
+                      <option key={artboard.id} value={artboard.id}>
+                        {artboard.isStartPoint ? '⚑' : `${EN_SPACE}`}{' '}
+                        {artboard.name}
+                      </option>
+                    )
+                  })}
+                </optgroup>
+              )
+            })}
+          </SelectBox>
+        </div>
       </div>
     </div>
   )

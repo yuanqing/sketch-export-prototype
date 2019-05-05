@@ -1,8 +1,14 @@
 .root {
-  display: flex;
   position: absolute;
   top: 0;
-  left: 50%;
+  right: 0;
+  left: 0;
+  background-color: rgba(34, 34, 34, .8);
+}
+
+.inner {
+  display: flex;
+  margin: auto;
 }
 
 .selectBox {

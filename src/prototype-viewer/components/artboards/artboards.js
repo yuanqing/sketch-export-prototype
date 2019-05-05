@@ -4,10 +4,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Artboard from './artboard'
 import { useRoute } from '../../contexts/route-context'
 import { useViewport } from '../../contexts/viewport-context'
-import { HotspotVisibilityProvider } from '../../contexts/hotspot-visibility-context'
 import style from './artboards.scss'
 
-export default function Artboards ({ getArtboardById }) {
+export default function Artboards ({ getArtboardById, showHotspots }) {
   const { viewportWidth, viewportHeight } = useViewport()
   const { currentRoute, getPageStack } = useRoute()
   const pageStack = getPageStack()
@@ -25,27 +24,25 @@ export default function Artboards ({ getArtboardById }) {
   }
   return (
     <div className={style.root} style={artboardsStyle}>
-      <HotspotVisibilityProvider>
-        <TransitionGroup>
-          {pageStack.map(function ({ route, animationType }, index) {
-            const classNames = getClassNames({ style, animationType })
-            return (
-              <CSSTransition
-                classNames={classNames}
-                key={`${route}-${animationType}-${index}`}
-                timeout={animationType === 'appear' ? 200 : 400}
-              >
-                <Artboard
-                  artboard={getArtboardById(route)}
-                  animationType={animationType}
-                  viewportWidth={viewportWidth}
-                  viewportHeight={viewportHeight}
-                />
-              </CSSTransition>
-            )
-          })}
-        </TransitionGroup>
-      </HotspotVisibilityProvider>
+      <TransitionGroup>
+        {pageStack.map(function ({ route, animationType }, index) {
+          const classNames = getClassNames({ style, animationType })
+          return (
+            <CSSTransition
+              classNames={classNames}
+              key={`${route}-${animationType}-${index}`}
+              timeout={animationType === 'appear' ? 200 : 400}
+            >
+              <Artboard
+                artboard={getArtboardById(route)}
+                animationType={animationType}
+                viewportWidth={viewportWidth}
+                viewportHeight={viewportHeight}
+              />
+            </CSSTransition>
+          )
+        })}
+      </TransitionGroup>
     </div>
   )
 }

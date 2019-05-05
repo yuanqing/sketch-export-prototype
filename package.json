@@ -77,7 +77,11 @@
       }
     ],
     "defaultSettings": {
-      "outputDirectoryPath": "~/Desktop/Sketch Prototypes"
+      "outputDirectoryPath": "~/Desktop/Sketch Prototypes",
+      "showHotspots": true,
+      "showNavigation": true,
+      "viewportWidth": null,
+      "viewportHeight": null
     }
   },
   "stylelint": {

@@ -5,7 +5,7 @@ import { prototypeDataFile } from './constants'
 import createArtboard from './create-artboard'
 import writeImages from './write-images'
 
-export default function buildPrototype ({ pages, outputDirectoryPath }) {
+export default function buildPrototype ({ pages, outputDirectoryPath, config }) {
   const startPointArtboardIds = []
   const pagesData = []
   pages.forEach(function (page) {
@@ -62,9 +62,8 @@ export default function buildPrototype ({ pages, outputDirectoryPath }) {
   })
   buildPrototypeDataFile({
     outputDirectoryPath,
-    config: {
-      viewportWidth: 375,
-      viewportHeight: 812,
+    data: {
+      ...config,
       startPointArtboardIds,
       pages: pagesData
     }
@@ -88,10 +87,10 @@ function isLayerInFixedGroup (layer) {
   return result
 }
 
-function buildPrototypeDataFile ({ outputDirectoryPath, config }) {
+function buildPrototypeDataFile ({ outputDirectoryPath, data }) {
   const outputFilePath = `${outputDirectoryPath}/${prototypeDataFile}`
   const fileContent = `window.__SKETCH_PROTOTYPE_DATA__=${JSON.stringify(
-    config
+    data
   )}\n`
   writeFileSync(outputFilePath, fileContent)
 }

@@ -7,9 +7,12 @@
   box-sizing: border-box;
 }
 
+html {
+  background-color: rgba(34, 34, 34, 1);
+}
+
 body {
   margin: 0;
   font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco",
     "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-  background-color: #222;
 }

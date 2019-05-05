@@ -6,11 +6,20 @@ import React, {
   useState
 } from 'react'
 
+import style from './hotspot-visibility-context.scss'
+
 export { HotspotVisibilityProvider, useHotspotVisibility }
 
 const HotspotVisibilityContext = createContext()
 
-function HotspotVisibilityProvider ({ children, rest }) {
+function HotspotVisibilityProvider ({ showHotspots, children, rest }) {
+  if (!showHotspots) {
+    return (
+      <HotspotVisibilityContext.Provider value={{ isVisible: false }} {...rest}>
+        <div>{children}</div>
+      </HotspotVisibilityContext.Provider>
+    )
+  }
   const [isVisible, setVisibility] = useState(false)
   const timeout = useRef()
   const handleClick = useCallback(function () {
@@ -25,7 +34,7 @@ function HotspotVisibilityProvider ({ children, rest }) {
   })
   return (
     <HotspotVisibilityContext.Provider value={{ isVisible }} {...rest}>
-      <div onClick={handleClick}>{children}</div>
+      <div className={style.root} onClick={handleClick}>{children}</div>
     </HotspotVisibilityContext.Provider>
   )
 }

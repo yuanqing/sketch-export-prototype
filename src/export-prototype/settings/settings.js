@@ -1,15 +1,26 @@
 import {
   openSettingsDialog,
   saveSettings,
+  CHECK_BOX,
   TEXT_BOX
 } from 'sketch-plugin-helper'
 
 const settingsConfig = {
-  title: 'Export Prototype',
+  title: 'Settings for Export Prototype',
   inputs: [
     {
+      type: CHECK_BOX,
+      key: 'showHotspots',
+      label: 'Show hotspots'
+    },
+    {
+      type: CHECK_BOX,
+      key: 'showNavigation',
+      label: 'Show navigation'
+    },
+    {
       type: TEXT_BOX,
-      key: 'outputDirectory',
+      key: 'outputDirectoryPath',
       label: 'Output directory'
     }
   ]

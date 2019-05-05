@@ -42,7 +42,9 @@ export default function App ({
       <RouteProvider initialRoute={startId}>
         <HotspotVisibilityProvider showHotspots={showHotspots}>
           <Artboards getArtboardById={getArtboardById} />
-          {showNavigation && <Navigation pages={pages} viewportWidth={viewportWidth} />}
+          {showNavigation && (
+            <Navigation pages={pages} viewportWidth={viewportWidth} />
+          )}
         </HotspotVisibilityProvider>
       </RouteProvider>
     </ViewportProvider>

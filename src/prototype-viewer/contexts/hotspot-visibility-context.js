@@ -34,7 +34,9 @@ function HotspotVisibilityProvider ({ showHotspots, children, rest }) {
   })
   return (
     <HotspotVisibilityContext.Provider value={{ isVisible }} {...rest}>
-      <div className={style.root} onClick={handleClick}>{children}</div>
+      <div className={style.root} onClick={handleClick}>
+        {children}
+      </div>
     </HotspotVisibilityContext.Provider>
   )
 }

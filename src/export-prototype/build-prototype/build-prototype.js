@@ -5,7 +5,11 @@ import { prototypeDataFile } from './constants'
 import createArtboard from './create-artboard'
 import writeImages from './write-images'
 
-export default function buildPrototype ({ pages, outputDirectoryPath, config }) {
+export default function buildPrototype ({
+  pages,
+  outputDirectoryPath,
+  config
+}) {
   const startPointArtboardIds = []
   const pagesData = []
   pages.forEach(function (page) {

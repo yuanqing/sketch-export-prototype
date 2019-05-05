@@ -5,5 +5,10 @@
     <link>https://raw.githubusercontent.com/yuanqing/sketch-export-prototype/master/appcast.xml</link>
     <description>A Sketch plugin to export a clickable prototype from your Sketch file</description>
     <language>en</language>
+    <item>
+      <title>v0.0.1</title>
+      <description>0.0.1</description>
+      <enclosure url="https://github.com/yuanqing/sketch-export-prototype/archive/v0.0.1.zip" sparkle:version="0.0.1"/>
+    </item>
   </channel>
 </rss>

@@ -10,6 +10,20 @@
   "license": "MIT",
   "author": "Lim Yuan Qing",
   "repository": "yuanqing/sketch-export-prototype",
+  "scripts": {
+    "build": "sph build && yarn run build-prototype-viewer",
+    "build-prototype-viewer": "node src/prototype-viewer/build-prototype-viewer/build-prototype-viewer-esm.js",
+    "fix": "concurrently --raw 'yarn run fix-css' 'yarn run fix-js'",
+    "fix-css": "stylelint --fix 'src/**/*.scss'",
+    "fix-js": "sph lint --fix",
+    "lint": "concurrently --raw 'yarn run lint-css' 'yarn run lint-js'",
+    "lint-css": "stylelint 'src/**/*.scss'",
+    "lint-js": "sph lint",
+    "symlink": "sph symlink",
+    "unlink": "sph symlink --delete",
+    "version": "sph version",
+    "watch": "sph build --watch --command 'yarn run build-prototype-viewer'"
+  },
   "dependencies": {
     "@sindresorhus/class-names": "^1.1.0",
     "@skpm/fs": "^0.2.4",
@@ -40,20 +54,6 @@
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.30.0"
   },
-  "scripts": {
-    "build": "sph build && yarn run build-prototype-viewer",
-    "build-prototype-viewer": "node src/prototype-viewer/build-prototype-viewer/build-prototype-viewer-esm.js",
-    "fix": "concurrently --raw 'yarn run fix-css' 'yarn run fix-js'",
-    "fix-css": "stylelint --fix 'src/**/*.scss'",
-    "fix-js": "sph lint --fix",
-    "lint": "concurrently --raw 'yarn run lint-css' 'yarn run lint-js'",
-    "lint-css": "stylelint 'src/**/*.scss'",
-    "lint-js": "sph lint",
-    "symlink": "sph symlink",
-    "unlink": "sph symlink --delete",
-    "version": "sph version",
-    "watch": "sph build --watch --command 'yarn run build-prototype-viewer'"
-  },
   "sketch-plugin-helper": {
     "name": "Export Prototype",
     "menu": [
@@ -79,7 +79,9 @@
     "defaultSettings": {
       "outputDirectoryPath": "~/Desktop/Sketch Prototypes",
       "showHotspots": true,
-      "showNavigation": true
+      "showNavigation": true,
+      "viewportHeight": null,
+      "viewportWidth": null
     }
   },
   "stylelint": {

@@ -41,7 +41,7 @@
     "webpack": "^4.30.0"
   },
   "scripts": {
-    "build": "sph build --command 'yarn run build-prototype-viewer'",
+    "build": "sph build && yarn run build-prototype-viewer",
     "build-prototype-viewer": "node src/prototype-viewer/build-prototype-viewer/build-prototype-viewer-esm.js",
     "fix": "concurrently --raw 'yarn run fix-css' 'yarn run fix-js'",
     "fix-css": "stylelint --fix 'src/**/*.scss'",
@@ -79,9 +79,7 @@
     "defaultSettings": {
       "outputDirectoryPath": "~/Desktop/Sketch Prototypes",
       "showHotspots": true,
-      "showNavigation": true,
-      "viewportWidth": null,
-      "viewportHeight": null
+      "showNavigation": true
     }
   },
   "stylelint": {

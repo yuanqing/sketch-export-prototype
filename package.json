@@ -41,19 +41,18 @@
     "webpack": "^4.30.0"
   },
   "scripts": {
-    "build": "yarn run build-plugin && yarn run build-prototype-viewer",
-    "build-plugin": "sph build",
+    "build": "sph build --command 'yarn run build-prototype-viewer'",
     "build-prototype-viewer": "node src/prototype-viewer/build-prototype-viewer/build-prototype-viewer-esm.js",
-    "fix": "concurrently 'yarn run fix-css' 'yarn run fix-js'",
+    "fix": "concurrently --raw 'yarn run fix-css' 'yarn run fix-js'",
     "fix-css": "stylelint --fix 'src/**/*.scss'",
     "fix-js": "sph lint --fix",
-    "lint": "concurrently 'yarn run lint-css' 'yarn run lint-js'",
+    "lint": "concurrently --raw 'yarn run lint-css' 'yarn run lint-js'",
     "lint-css": "stylelint 'src/**/*.scss'",
     "lint-js": "sph lint",
     "symlink": "sph symlink",
     "unlink": "sph symlink --delete",
     "version": "sph version",
-    "watch": "sph build --watch 'yarn run build-prototype-viewer'"
+    "watch": "sph build --watch --command 'yarn run build-prototype-viewer'"
   },
   "sketch-plugin-helper": {
     "name": "Export Prototype",

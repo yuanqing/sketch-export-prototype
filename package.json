@@ -10,6 +10,9 @@
   "license": "MIT",
   "author": "Lim Yuan Qing",
   "repository": "yuanqing/sketch-export-prototype",
+  "files": [
+    "src"
+  ],
   "scripts": {
     "build": "sph build && yarn run build-prototype-viewer",
     "build-prototype-viewer": "node src/prototype-viewer/build-prototype-viewer/build-prototype-viewer-esm.js",

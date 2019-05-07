@@ -1,6 +1,6 @@
 {
   "name": "sketch-export-prototype",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Sketch plugin to export a clickable prototype from your Sketch file",
   "keywords": [
     "plugin",

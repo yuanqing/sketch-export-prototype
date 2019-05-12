@@ -1,4 +1,4 @@
-import { getCoordinatesRelativeToArtboard } from 'sketch-plugin-helper'
+import { calculateCoordinatesRelativeToArtboard } from 'sketch-plugin-helper'
 
 import createImageFileName from './create-image-filename'
 
@@ -19,7 +19,7 @@ export default function createArtboard ({
     },
     fixedLayers: fixedLayers.map(function ({ hasImage, layer }) {
       const { width, height } = layer.frame
-      const { x, y } = getCoordinatesRelativeToArtboard(layer)
+      const { x, y } = calculateCoordinatesRelativeToArtboard(layer)
       return {
         fileName: hasImage ? createImageFileName(layer.id) : null,
         width,
@@ -31,7 +31,7 @@ export default function createArtboard ({
     }),
     hotspotLayers: hotspotLayers.map(function (layer) {
       const { width, height } = layer.frame
-      const { x, y } = getCoordinatesRelativeToArtboard(layer)
+      const { x, y } = calculateCoordinatesRelativeToArtboard(layer)
       return {
         width,
         height,

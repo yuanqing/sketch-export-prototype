@@ -1,5 +1,5 @@
 import { writeFileSync } from '@skpm/fs'
-import { iterateNestedLayers, iterateParentLayers } from 'sketch-plugin-helper'
+import { iterateChildLayers, iterateParentLayers } from 'sketch-plugin-helper'
 
 import { prototypeDataFile } from './constants'
 import createArtboard from './create-artboard'
@@ -27,7 +27,7 @@ export default function buildPrototype ({
       }
       const fixedLayers = []
       const hotspotLayers = []
-      iterateNestedLayers(artboard.layers, function (layer) {
+      iterateChildLayers(artboard.layers, function (layer) {
         if (layer.hidden) {
           return
         }

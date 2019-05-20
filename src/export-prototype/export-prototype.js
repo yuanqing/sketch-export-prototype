@@ -19,7 +19,7 @@ export default function exportPrototype () {
   if (widths.length !== 1 || heights.length !== 1) {
     const settingsConfig = {
       title: 'Export Prototype',
-      inputs: [
+      formFields: [
         {
           type: DROP_DOWN,
           key: 'viewportWidth',

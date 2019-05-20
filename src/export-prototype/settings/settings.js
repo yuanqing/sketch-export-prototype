@@ -1,13 +1,14 @@
 import {
   openSettingsDialog,
   saveSettings,
+  showSuccessMessage,
   CHECK_BOX,
   TEXT_BOX
 } from 'sketch-plugin-helper'
 
 const settingsConfig = {
   title: 'Settings for Export Prototype',
-  inputs: [
+  formFields: [
     {
       type: CHECK_BOX,
       key: 'showHotspots',
@@ -29,6 +30,7 @@ const settingsConfig = {
 export default function settings () {
   const settings = openSettingsDialog(settingsConfig)
   if (settings) {
-    saveSettings(settings, { successMessage: 'Settings saved' })
+    saveSettings(settings)
+    showSuccessMessage('Saved settings')
   }
 }

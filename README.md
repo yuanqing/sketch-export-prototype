@@ -1,4 +1,4 @@
-# Export Prototype
+# Export Prototype [![npm Version](https://badgen.net/npm/v/sketch-export-prototype)](https://www.npmjs.org/package/sketch-export-prototype)
 
 > A Sketch plugin to export a clickable prototype from your Sketch file
 

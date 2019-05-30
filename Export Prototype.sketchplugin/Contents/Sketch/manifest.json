@@ -3,7 +3,7 @@
   "description": "A Sketch plugin to export a clickable prototype from your Sketch file",
   "author": "Lim Yuan Qing",
   "homepage": "https://github.com/yuanqing/sketch-export-prototype",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "identifier": "yuanqing.sketch-export-prototype",
   "appcast": "https://raw.githubusercontent.com/yuanqing/sketch-export-prototype/master/appcast.xml",
   "bundleVersion": 1,

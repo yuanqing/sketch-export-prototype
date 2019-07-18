@@ -17,7 +17,7 @@ export default function buildPrototype ({
       return
     }
     const artboardsData = []
-    page.layers.forEach(function (layer) {
+    ;[...page.layers].reverse().forEach(function (layer) {
       if (layer.type !== 'Artboard') {
         return
       }
